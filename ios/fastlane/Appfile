@@ -1,0 +1,2 @@
+app_identifier("com.example.runnerprimeFlutter") # TODO: replace with your bundle id
+apple_id("your-apple-id@example.com") # TODO: replace with your Apple ID

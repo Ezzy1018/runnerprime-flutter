@@ -28,6 +28,19 @@ Prototype slice: Auth + Home + Run (live map + 100m tiles)
 - `flutter test integration_test` (integration)
 - `flutter run`
 
+## Android Releases (GitHub)
+- Tag the repository with `v*` (e.g. `v0.1.0`) -> CI builds and attaches a debug APK in GitHub Releases.
+- Workflow: `.github/workflows/release-apk.yml`
+
+## iOS TestFlight (CI)
+- Workflow: `.github/workflows/ios-testflight.yml` (manual trigger)
+- Required GitHub Secrets:
+  - `ASC_KEY_ID` (App Store Connect API key ID)
+  - `ASC_ISSUER_ID` (App Store Connect issuer ID)
+  - `ASC_KEY_BASE64` (Base64 content of `.p8` key)
+- Update `ios/fastlane/Appfile` with your bundle id and Apple ID.
+- Trigger the workflow from the Actions tab to upload to TestFlight.
+
 ## Performance
 - See `tool/ci/device_matrix.md` for devices and `tool/ci/perf_notes.md` for steps.
 - Build size: use `flutter build apk --analyze-size`; enable ABI splits in Gradle.
