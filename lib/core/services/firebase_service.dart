@@ -8,18 +8,23 @@ import 'firebase_options.dart';
 class FirebaseService {
   static bool _initialized = false;
 
+  static bool _hasValidOptions(FirebaseOptions o) {
+    return !(o.apiKey == 'REPLACE_ME' || o.appId == 'REPLACE_ME' || o.projectId == 'REPLACE_ME');
+  }
+
   static Future<void> initialize() async {
     if (_initialized) return;
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-    // Touch singletons to ensure lazy init
-    // ignore: unused_local_variable
-    final auth = FirebaseAuth.instance;
-    // ignore: unused_local_variable
-    final firestore = FirebaseFirestore.instance;
-    // ignore: unused_local_variable
-    final analytics = FirebaseAnalytics.instance;
+    final opts = DefaultFirebaseOptions.currentPlatform;
+    if (_hasValidOptions(opts)) {
+      await Firebase.initializeApp(options: opts);
+      // Touch singletons to ensure lazy init
+      // ignore: unused_local_variable
+      final auth = FirebaseAuth.instance;
+      // ignore: unused_local_variable
+      final firestore = FirebaseFirestore.instance;
+      // ignore: unused_local_variable
+      final analytics = FirebaseAnalytics.instance;
+    }
     _initialized = true;
   }
 }

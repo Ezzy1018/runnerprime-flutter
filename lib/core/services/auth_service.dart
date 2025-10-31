@@ -4,13 +4,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class AuthService {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseAuth get _auth => FirebaseAuth.instance;
 
-  Stream<User?> authStateChanges() => _auth.authStateChanges();
+  Stream<User?> authStateChanges() {
+    try {
+      return _auth.authStateChanges();
+    } catch (_) {
+      return Stream<User?>.value(null);
+    }
+  }
 
   Future<UserCredential?> signInWithApple() async {
     try {
-      // Note: For Android, Sign in with Apple uses a web flow and requires service configuration.
       final credential = await SignInWithApple.getAppleIDCredential(
         scopes: [
           AppleIDAuthorizationScopes.email,
@@ -25,10 +30,13 @@ class AuthService {
       );
       return await _auth.signInWithCredential(oauthCredential);
     } catch (e) {
-      // In prototype, swallow and return null
       return null;
     }
   }
 
-  Future<void> signOut() => _auth.signOut();
+  Future<void> signOut() async {
+    try {
+      await _auth.signOut();
+    } catch (_) {}
+  }
 }

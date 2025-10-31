@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -17,7 +19,7 @@ class AuthController extends StateNotifier<AsyncValue<User?>> {
   }
 
   final Ref _ref;
-  late final Stream<User?> _subscription;
+  late final StreamSubscription<User?> _subscription;
 
   Future<void> signInWithApple() async {
     state = const AsyncValue.loading();
@@ -35,8 +37,7 @@ class AuthController extends StateNotifier<AsyncValue<User?>> {
 
   @override
   void dispose() {
-    // ignore: unused_local_variable
-    final _ = _subscription;
+    _subscription.cancel();
     super.dispose();
   }
 }
