@@ -4,7 +4,6 @@
 
     <application
         android:label="runnerprime_flutter"
-        android:name="io.flutter.app.FlutterApplication"
         android:icon="@mipmap/ic_launcher">
         <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyDlBbsMn2Zl2X-1t-xh7F20a8PkMjOTGI0" />
         <activity
