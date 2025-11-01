@@ -21,6 +21,9 @@ android {
         getByName("release") {
             isMinifyEnabled = false
         }
+        getByName("debug") {
+            isShrinkResources = false
+        }
     }
 
     compileOptions {
